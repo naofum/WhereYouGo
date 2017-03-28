@@ -91,11 +91,6 @@ public class DetailsActivity extends MediaActivity implements IRefreshable, ILoc
         }
     }
 
-    @Override
-    public String getName() {
-        return TAG;
-    }
-
     public int getPriority() {
         return ILocationEventListener.PRIORITY_MEDIUM;
     }
@@ -107,7 +102,7 @@ public class DetailsActivity extends MediaActivity implements IRefreshable, ILoc
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (A.getMain() == null || Engine.instance == null) {
+        if (A.getMain() == null || MainApplication.getInstance().getEngine() == null) {
             finish();
             return;
         }
@@ -189,7 +184,7 @@ public class DetailsActivity extends MediaActivity implements IRefreshable, ILoc
 
         if (et instanceof Thing) {
             Thing t = (Thing) et;
-            actions = t.visibleActions() + Engine.instance.cartridge.visibleUniversalActions();
+            actions = t.visibleActions() + MainApplication.getInstance().getEngine().cartridge.visibleUniversalActions();
             Logger.d(TAG, "actions:" + actions);
             validActions = ListActionsActivity.getValidActions(t);
             actions = validActions.size();
